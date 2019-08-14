@@ -1,6 +1,6 @@
 pipeline{
     environment{
-        RELEASE_ENVIORNMENT= ${params.RELEASE_ENVIORNMENT}
+        RELEASE_ENVIORNMENT= "${params.RELEASE_ENVIORNMENT}"
     }
     
     agent any
