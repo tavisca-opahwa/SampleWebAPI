@@ -14,7 +14,7 @@ pipeline
 		
             steps {
 			
-                sh 'dotnet build ApiTest.sln -p:configuration=release -v:n'
+                sh 'dotnet build API.sln -p:configuration=release -v:n'
     
 				            echo "Building......."
  
