@@ -1,6 +1,9 @@
 pipeline{
-    RELEASE_ENVIORNMENT="${params.RELEASE_ENVIORNMENT}"
-    agent {label 'master'}
+    environment{
+        RELEASE_ENVIORNMENT= ${params.RELEASE_ENVIORNMENT}
+    }
+    
+    agent any
     parameters{
         string(
             name : 'GIT_SSH_PATH',
@@ -27,7 +30,6 @@ pipeline{
             choices:"Build\nTest",
             description: '',
         )
-
     }
     stages{
         stage('Build'){
@@ -50,8 +52,7 @@ pipeline{
                 dotnet${NETCORE_VERSION} test ${TEST_PROJECT_PATH} ,
                 '''
             }
-        }
-        
+        }        
     }
     post{
         always{
