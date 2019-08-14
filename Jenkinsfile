@@ -34,7 +34,7 @@ pipeline{
     stages{
         stage('Build'){
             when{
-                expression{"$(RELEASE_ENVIORNMENT)" == "Build"}
+                expression{"${RELEASE_ENVIORNMENT}" == "Build"}
             }
             steps{ 
                 sh '''
@@ -45,7 +45,7 @@ pipeline{
         }
         stage('Test'){
             when{
-                expression{"$(RELEASE_ENVIORNMENT" == "Test"}
+                expression{"${RELEASE_ENVIORNMENT}" == "Test"}
             }
             steps{ 
                 sh '''
