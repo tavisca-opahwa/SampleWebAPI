@@ -1,5 +1,5 @@
 pipeline{
-    RELEASE_ENVIORNMENT="${params.RELEASE_ENVIORNMENT}"
+    RELEASE_ENVIORNMENT={"${params.RELEASE_ENVIORNMENT}"}
     agent {label 'master'}
     parameters{
         string(
