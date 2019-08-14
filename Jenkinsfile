@@ -1,7 +1,5 @@
 pipeline{
-    enviornment{
-        RELEASE_ENVIORNMENT="${params.RELEASE_ENVIORNMENT}"
-    }
+    RELEASE_ENVIORNMENT="${params.RELEASE_ENVIORNMENT}"
     agent {label 'master'}
     parameters{
         string(
@@ -55,7 +53,7 @@ pipeline{
         }
         
     }
-    Post{
+    post{
         always{
             deleteDir()
         }
