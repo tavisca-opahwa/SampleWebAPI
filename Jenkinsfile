@@ -13,7 +13,7 @@ pipeline{
         )
         string(
             name: "DOTNETCORE_VERSION",
-            defaultValue: "2.2",
+            defaultValue: "2.1",
             description: "Version"
         )
         string(
@@ -78,7 +78,7 @@ pipeline{
                 expression{params.RELEASE_ENVIRONMENT == "Publish"}
             }
             steps {
-                zip zipFile: 'publish.zip', archive: false, dir: 'WebApi/bin/Debug/netcoreapp2.2/publish'
+                zip zipFile: 'publish.zip', archive: false, dir: 'API/bin/Debug/netcoreapp2.1/publish'
                 archiveArtifacts artifacts: 'publish.zip', fingerprint: true
             }
         }
