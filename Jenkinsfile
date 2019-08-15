@@ -2,13 +2,13 @@ pipeline{
     agent { label 'master' }
     parameters{
         string(
-            name: "GIT_HTTPS_PATH",
-            defaultValue: "https://github.com/tavisca-dshrivastav/SampleWebApi.git",
+            name: "HTTPS_PATH",
+            defaultValue: "https://github.com/tavisca-opahwa/SampleWebAPI",
             description: "GIT HTTPS PATH"
         )
         string(
             name: "SOLUTION_PATH",
-            defaultValue: "WebApi.sln",
+            defaultValue: "Api.sln",
             description: "SOLUTION_PATH"
         )
         string(
@@ -18,13 +18,13 @@ pipeline{
         )
         string(
             name: "TEST_SOLUTION_PATH",
-            defaultValue: "WebApi.Test/WebApi.Test.csproj",
+            defaultValue: "API.Tests/API.Tests.csproj",
             description: "TEST SOLUTION PATH"
         )
         
         string(
             name: "PROJECT_PATH",
-            defaultValue: "WebApi/WebApi.csproj",
+            defaultValue: "API/API.csproj",
             description: "TEST SOLUTION PATH"
         )
         choice(
