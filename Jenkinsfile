@@ -3,28 +3,28 @@ pipeline{
     parameters{
         string(
             name: "HTTPS_PATH",
-            defaultValue: "",
+            defaultValue: "https://github.com/tavisca-opahwa/SampleWebAPI",
             description: "GIT HTTPS PATH"
         )
         string(
             name: "SOLUTION_PATH",
-            defaultValue: "",
+            defaultValue: "API.sln ",
             description: "SOLUTION_PATH"
         )
         string(
             name: "DOTNETCORE_VERSION",
-            defaultValue: "",
+            defaultValue: "2.1",
             description: "Version"
         )
         string(
             name: "TEST_SOLUTION_PATH",
-            defaultValue: "",
+            defaultValue: "API.Tests/API.Tests.csproj",
             description: "TEST SOLUTION PATH"
         )
         
         string(
             name: "PROJECT_PATH",
-            defaultValue: "",
+            defaultValue: "API/API.csproj",
             description: "TEST SOLUTION PATH"
         )
         choice(
