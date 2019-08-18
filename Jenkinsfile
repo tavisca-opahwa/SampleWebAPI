@@ -1,14 +1,18 @@
-pipeline{
+    pipeline{
     agent { label 'master' }
     parameters{
         string(
-            name: "HTTPS_PATH",
-            defaultValue: "https://github.com/tavisca-opahwa/SampleWebAPI",
+            name: "GIT_HTTPS_PATH",
+            defaultValue: "https://github.com/tavisca-opahwa/SampleWebApi.git",
             description: "GIT HTTPS PATH"
         )
         string(
+            name: "Project_Name",
+            defaultValue: "api"
+        )
+        string(
             name: "SOLUTION_PATH",
-            defaultValue: "API.sln ",
+            defaultValue: "API.sln",
             description: "SOLUTION_PATH"
         )
         string(
@@ -25,7 +29,26 @@ pipeline{
         string(
             name: "PROJECT_PATH",
             defaultValue: "API/API.csproj",
-            description: "TEST SOLUTION PATH"
+        )
+         string(
+            name: "DOCKERFILE",
+            defaultValue: "mcr.microsoft.com/dotnet/core/aspnet",
+        )
+         string(
+            name: "ENV_NAME",
+            defaultValue: "Api",
+        )
+         string(
+            name: "SOLUTION_DLL_FILE",
+            defaultValue: "API.dll",
+        )
+        string(
+            name: "DOCKER_USER_NAME",
+            description: "Enter Docker hub Username"
+        )
+        string(
+            name: "DOCKER_PASSWORD",
+            description:  "Enter Docker hub Password"
         )
         choice(
             name: "RELEASE_ENVIRONMENT",
@@ -69,17 +92,25 @@ pipeline{
                 powershell '''
                     echo '====================Build Project Start ================'
                     dotnet publish ${PROJECT_PATH}
+                    
                     echo '=====================Build Project Completed============'
                 '''
             }
         }
-        stage ('push artifact') {
+        stage ('Creating Docker Image') {
             when{
                 expression{params.RELEASE_ENVIRONMENT == "Publish"}
             }
             steps {
-                zip zipFile: 'publish.zip', archive: false, dir: 'API/bin/Debug/netcoreapp2.1/publish'
-                archiveArtifacts artifacts: 'publish.zip', fingerprint: true
+                writeFile file: 'WebApi/bin/Debug/netcoreapp2.1/publish/Dockerfile', text: '''
+                        FROM mcr.microsoft.com/dotnet/core/aspnet\n
+                        ENV NAME ${Project_Name}\n
+                        CMD ["dotnet", "${SOLUTION_DLL_FILE}"]\n'''
+                
+                powershell "docker build WebApi/bin/Debug/netcoreapp2.1/publish/ --tag=${Project_Name}:${BUILD_NUMBER}"    
+                powershell "docker tag ${Project_Name}:${`} ${DOCKER_USER_NAME}/${Project_Name}:${BUILD_NUMBER}"
+                powershell "docker login -u ${DOCKER_USERN_NAME} -p ${DOCKER_PASSWORD}" 
+                powershell "docker push ${DOCKER_USER_NAME}/${Project_Name}:${BUILD_NUMBER}"
             }
         }
     }
