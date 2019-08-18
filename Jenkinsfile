@@ -52,7 +52,7 @@
         )
         choice(
             name: "RELEASE_ENVIRONMENT",
-            choices: ["Build","Test", "Publish"],
+            choices: ["Build", "Publish"],
             description: "Tick what you want to do"
         )
     }
@@ -65,22 +65,11 @@
                 powershell '''
                     echo '====================Build Project Start ================'
                     dotnet restore ${SOLUTION_PATH} --source https://api.nuget.org/v3/index.json
-                    echo '=====================Build Project Completed============'
-                    echo '====================Build Project Start ================'
                     dotnet build ${PPOJECT_PATH} 
                     echo '=====================Build Project Completed============'
-                '''
-            }
-        }
-        stage('Test'){
-            when{
-                expression{params.RELEASE_ENVIRONMENT == "Test" || params.RELEASE_ENVIRONMENT == "Publish"}
-            }
-            steps{
-                powershell '''
-                    echo '====================Build Project Start ================'
+                    echo '====================Test Project Start ================'
                     dotnet test ${TEST_SOLUTION_PATH}
-                    echo '=====================Build Project Completed============'
+                    echo '=====================Test Project Completed============'
                 '''
             }
         }
