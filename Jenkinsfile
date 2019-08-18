@@ -108,7 +108,7 @@
                         CMD ["dotnet", "${SOLUTION_DLL_FILE}"]\n'''
                 
                 powershell "docker build WebApi/bin/Debug/netcoreapp2.1/publish/ --tag=${Project_Name}:${BUILD_NUMBER}"    
-                powershell "docker tag ${Project_Name}:${`} ${DOCKER_USER_NAME}/${Project_Name}:${BUILD_NUMBER}"
+                powershell "docker tag ${Project_Name}:${BUILD_NUMBER} ${DOCKER_USER_NAME}/${Project_Name}:${BUILD_NUMBER}"
                 powershell "docker login -u ${DOCKER_USERN_NAME} -p ${DOCKER_PASSWORD}" 
                 powershell "docker push ${DOCKER_USER_NAME}/${Project_Name}:${BUILD_NUMBER}"
             }
