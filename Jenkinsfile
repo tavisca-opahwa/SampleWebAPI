@@ -52,54 +52,36 @@
         )
         choice(
             name: "RELEASE_ENVIRONMENT",
-            choices: ["Build","Test", "Publish"],
+            choices: ["Build","Deploy"],
             description: "Tick what you want to do"
         )
     }
     stages{
         stage('Build'){
             when{
-                expression{params.RELEASE_ENVIRONMENT == "Build" || params.RELEASE_ENVIRONMENT == "Test" || params.RELEASE_ENVIRONMENT == "Publish"}
+                expression{params.RELEASE_ENVIRONMENT == "Build"}
             }
             steps{
                 powershell '''
-                    echo '====================Build Project Start ================'
+                    echo '====================Restore Start ================'
                     dotnet restore ${SOLUTION_PATH} --source https://api.nuget.org/v3/index.json
-                    echo '=====================Build Project Completed============'
-                    echo '====================Build Project Start ================'
+                    echo '=====================Restore Completed============'
+                    echo '====================Build Start ================'
                     dotnet build ${PPOJECT_PATH} 
-                    echo '=====================Build Project Completed============'
-                '''
-            }
-        }
-        stage('Test'){
-            when{
-                expression{params.RELEASE_ENVIRONMENT == "Test" || params.RELEASE_ENVIRONMENT == "Publish"}
-            }
-            steps{
-                powershell '''
-                    echo '====================Build Project Start ================'
+                    echo '=====================Build Completed============'
+                     echo '====================Test Start ================'
                     dotnet test ${TEST_SOLUTION_PATH}
-                    echo '=====================Build Project Completed============'
-                '''
-            }
-        }
-        stage('Publish'){
-            when{
-                expression{params.RELEASE_ENVIRONMENT == "Publish"}
-            }
-            steps{
-                powershell '''
-                    echo '====================Build Project Start ================'
+                    echo '=====================Test Completed============'
+                     echo '====================Publish Start ================'
                     dotnet publish ${PROJECT_PATH}
                     
-                    echo '=====================Build Project Completed============'
+                    echo '=====================Publish Completed============'
                 '''
             }
         }
         stage ('Creating Docker Image') {
             when{
-                expression{params.RELEASE_ENVIRONMENT == "Publish"}
+                expression{params.RELEASE_ENVIRONMENT == "Deploy"}
             }
             steps {
                 writeFile file: 'API/bin/Debug/netcoreapp2.1/publish/Dockerfile', text: '''
