@@ -102,12 +102,12 @@
                 expression{params.RELEASE_ENVIRONMENT == "Publish"}
             }
             steps {
-                writeFile file: 'WebApi/bin/Debug/netcoreapp2.1/publish/Dockerfile', text: '''
+                writeFile file: 'API/bin/Debug/netcoreapp2.1/publish/Dockerfile', text: '''
                         FROM mcr.microsoft.com/dotnet/core/aspnet\n
                         ENV NAME ${Project_Name}\n
                         CMD ["dotnet", "${SOLUTION_DLL_FILE}"]\n'''
                 
-                powershell "docker build WebApi/bin/Debug/netcoreapp2.1/publish/ --tag=${Project_Name}:${BUILD_NUMBER}"    
+                powershell "docker build API/bin/Debug/netcoreapp2.1/publish/ --tag=${Project_Name}:${BUILD_NUMBER}"    
                 powershell "docker tag ${Project_Name}:${} ${DOCKER_USER_NAME}/${Project_Name}:${BUILD_NUMBER}"
                 powershell "docker login -u ${DOCKER_USERN_NAME} -p ${DOCKER_PASSWORD}" 
                 powershell "docker push ${DOCKER_USER_NAME}/${Project_Name}:${BUILD_NUMBER}"
