@@ -52,7 +52,7 @@
         )
         choice(
             name: "RELEASE_ENVIRONMENT",
-            choices: ["Build", "Publish"],
+            choices: ["Build","Test", "Publish"],
             description: "Tick what you want to do"
         )
     }
@@ -65,11 +65,22 @@
                 powershell '''
                     echo '====================Build Project Start ================'
                     dotnet restore ${SOLUTION_PATH} --source https://api.nuget.org/v3/index.json
+                    echo '=====================Build Project Completed============'
+                    echo '====================Build Project Start ================'
                     dotnet build ${PPOJECT_PATH} 
                     echo '=====================Build Project Completed============'
-                    echo '====================Test Project Start ================'
+                '''
+            }
+        }
+        stage('Test'){
+            when{
+                expression{params.RELEASE_ENVIRONMENT == "Test" || params.RELEASE_ENVIRONMENT == "Publish"}
+            }
+            steps{
+                powershell '''
+                    echo '====================Build Project Start ================'
                     dotnet test ${TEST_SOLUTION_PATH}
-                    echo '=====================Test Project Completed============'
+                    echo '=====================Build Project Completed============'
                 '''
             }
         }
@@ -97,7 +108,7 @@
                         CMD ["dotnet", "${SOLUTION_DLL_FILE}"]\n'''
                 
                 powershell "docker build WebApi/bin/Debug/netcoreapp2.1/publish/ --tag=${Project_Name}:${BUILD_NUMBER}"    
-                powershell "docker tag ${Project_Name}:${BUILD_NUMBER} ${DOCKER_USER_NAME}/${Project_Name}:${BUILD_NUMBER}"
+                powershell "docker tag ${Project_Name}:${} ${DOCKER_USER_NAME}/${Project_Name}:${BUILD_NUMBER}"
                 powershell "docker login -u ${DOCKER_USERN_NAME} -p ${DOCKER_PASSWORD}" 
                 powershell "docker push ${DOCKER_USER_NAME}/${Project_Name}:${BUILD_NUMBER}"
             }
