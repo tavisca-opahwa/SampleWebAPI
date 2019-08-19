@@ -44,12 +44,12 @@
         )
         string(
             name: "DOCKER_USER_NAME",
-            defaultValue: 'ojaspahwa'
+            defaultValue: 'ojaspahwa',
             description: "Enter Docker hub Username"
         )
         string(
             name: "DOCKER_PASSWORD",
-             defaultValue: 'Ojas@2799'
+             defaultValue: 'Ojas@2799',
             description:  "Enter Docker hub Password"
         )
         string(
