@@ -8,7 +8,7 @@
         )
         string(
             name: "PROJECT_NAME",
-            defaultValue: "WebApi"
+            defaultValue: "webapi"
         )
         string(
             name: "SOLUTION_PATH",
