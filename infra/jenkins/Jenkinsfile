@@ -67,7 +67,7 @@
                 expression{params.RELEASE_ENVIRONMENT == "Build" || params.RELEASE_ENVIRONMENT == "Deploy"}
             }
             steps{
-                powershell '''
+                bat '''
                 echo "----------------------------Build Project Started-----------------------------"
 				dotnet C:\sonar\SonarScanner.MSBuild.dll begin /k:"api" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="%SONAR_PROJECT_TOKEN%"
 				dotnet build %SOLUTION_PATH% -p:Configuration=release -v:n
@@ -75,7 +75,7 @@
 				echo "----------------------------Test Project Started-----------------------------"
 				dotnet test %TEST_SOLUTION_PATH%
 				echo "----------------------------Test Project Completed-----------------------------"
-				dotnet C:/install_directory/SonarScanner.MSBuild.dll end /d:sonar.login="%SONAR_PROJECT_TOKEN%"
+				dotnet C:/sonar/SonarScanner.MSBuild.dll end /d:sonar.login="%SONAR_PROJECT_TOKEN%"
                 echo '====================Publish Start ================'
                 dotnet publish ${PROJECT_PATH}
                 echo '=====================Publish Completed============'
