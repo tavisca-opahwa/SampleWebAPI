@@ -44,15 +44,17 @@
         )
         string(
             name: "DOCKER_USER_NAME",
+            defaultValue: 'ojaspahwa'
             description: "Enter Docker hub Username"
         )
         string(
             name: "DOCKER_PASSWORD",
+             defaultValue: 'Ojas@2799'
             description:  "Enter Docker hub Password"
         )
         string(
             name: 'SONAR_PROJECT_TOKEN',
-            defaultValue: '', 
+            defaultValue: 'afbd92e6f6352f057f70a19377f5909739ba36cf', 
             description: 'Path to the Solution'
         )
         choice(
