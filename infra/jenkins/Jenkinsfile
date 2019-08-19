@@ -72,13 +72,13 @@
                 bat '''
                 echo "----------------------------Build Project Started-----------------------------"
                 echo "Helllo"
-				dotnet C:/sonar/SonarScanner.MSBuild.dll begin /k:"api" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="%SONAR_PROJECT_TOKEN%"
+				dotnet "C:\Program Files (x86)\Jenkins\sonar\SonarScanner.MSBuild.dll" begin /k:"api" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="%SONAR_PROJECT_TOKEN%"
 				dotnet build %SOLUTION_PATH% -p:Configuration=release -v:q
 				echo "----------------------------Build Project Completed-----------------------------"
 				echo "----------------------------Test Project Started-----------------------------"
 				dotnet test %TEST_SOLUTION_PATH%
 				echo "----------------------------Test Project Completed-----------------------------"
-				dotnet C:/sonar/SonarScanner.MSBuild.dll end /d:sonar.login="%SONAR_PROJECT_TOKEN%"
+				dotnet "C:\Program Files (x86)\Jenkins\sonar\SonarScanner.MSBuild.dll" end /d:sonar.login="%SONAR_PROJECT_TOKEN%"
                 echo '====================Publish Start ================'
                 dotnet publish %SOLUTION_PATH% -c Release -o ../publish
                 echo '=====================Publish Completed============'
