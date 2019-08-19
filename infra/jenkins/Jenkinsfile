@@ -69,7 +69,7 @@
             steps{
                 bat '''
                 echo "----------------------------Build Project Started-----------------------------"
-				dotnet C:\sonar\SonarScanner.MSBuild.dll begin /k:"api" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="%SONAR_PROJECT_TOKEN%"
+				dotnet C:\sonar\SonarScanner.MSBuild.dll begin /k:"api" /d:sonar.host.url="http:\\localhost:9000" /d:sonar.login="%SONAR_PROJECT_TOKEN%"
 				dotnet build %SOLUTION_PATH% -p:Configuration=release -v:n
 				echo "----------------------------Build Project Completed-----------------------------"
 				echo "----------------------------Test Project Started-----------------------------"
