@@ -7,8 +7,8 @@
             description: "GIT HTTPS PATH"
         )
         string(
-            name: "Project_Name",
-            defaultValue: "api"
+            name: "PROJECT_NAME",
+            defaultValue: "WebApi"
         )
         string(
             name: "SOLUTION_PATH",
