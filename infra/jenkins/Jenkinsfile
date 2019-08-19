@@ -77,7 +77,7 @@
 				echo "----------------------------Test Project Completed-----------------------------"
 				dotnet C:/sonar/SonarScanner.MSBuild.dll end /d:sonar.login="%SONAR_PROJECT_TOKEN%"
                 echo '====================Publish Start ================'
-                dotnet publish ${PROJECT_PATH}
+                dotnet publish %SOLUTION_PATH% -c Release -o ../publish
                 echo '=====================Publish Completed============'
                 '''
             }
