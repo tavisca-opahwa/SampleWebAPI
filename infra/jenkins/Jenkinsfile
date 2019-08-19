@@ -98,9 +98,5 @@
             }
         }
     }
-    post{
-        always{
-            deleteDir()
-       }
-    }
+    
 }
